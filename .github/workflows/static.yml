@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Our Site</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            color: #333;
+        }
+        #share-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        #share-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #share-container:hover::before {
+            opacity: 1;
+            animation: smoke 2s infinite;
+            background: linear-gradient(45deg, rgba(255,138,0,0.5), rgba(229,46,113,0.5), rgba(31,228,245,0.5), rgba(59,141,153,0.5));
+            background-size: 400% 400%;
+        }
+        @keyframes smoke {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        #share-title {
+            text-align: center;
+            font-size: 24px;
+            color: #007bff;
+            margin-top: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        #intro, #instructions {
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .highlight {
+            color: #ff5733;
+            font-weight: bold;
+            animation: color-change 2s infinite;
+            display: inline-flex;
+            align-items: center;
+        }
+        .highlight .fa-toothbrush {
+            margin-left: 8px;
+        }
+        @keyframes color-change {
+            0% { color: #ff5733; }
+            50% { color: #33ccff; }
+            100% { color: #ff5733; }
+        }
+        .share-btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .share-btn {
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .share-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .share-options {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .share-options button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .share-options button:hover {
+            transform: scale(1.05);
+        }
+        .facebook-btn {
+            background-color: #3b5998;
+            color: white;
+        }
+        .whatsapp-btn {
+            background-color: #25d366;
+            color: white;
+        }
+        .message-btn {
+            background-color: #34b7f1;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="share-container">
+        <h3 id="share-title">Share Our Site</h3>
+        <p id="intro">We greatly appreciate referrals from our valued patients. As a token of our gratitude, successful referrals will receive an <span class="highlight">10% Discount <i class="fas fa-toothbrush"></i></span>. If you'd like to refer someone to us, please use the options below. Thank you for your trust and support!</p>
+        <p id="instructions">To share our contact information with a friend via Facebook, WhatsApp or text, click on the "Refer" button below.</p>
+        
+        <!-- Share button section -->
+        <div class="share-btn-container">
+            <button class="share-btn" onclick="showShareOptions()">Refer</button>
+            <div class="share-options" id="shareOptions">
+                <button class="facebook-btn" onclick="shareOnFacebook()">Facebook</button>
+                <button class="whatsapp-btn" onclick="shareOnWhatsApp()">WhatsApp</button>
+                <button class="message-btn" onclick="shareOnMessage()">Message</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showShareOptions() {
+            document.querySelector('.share-btn').style.display = 'none';
+            document.getElementById('shareOptions').style.display = 'flex';
+        }
+
+        function shareOnFacebook() {
+            const text = "Here is the contact information for the office I was telling you about. Click on the link below to visit their website:\n\nWebsite: https://www.smilekeeperdental.com/";
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://www.smilekeeperdental.com/')}&quote=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnWhatsApp() {
+            const text = "Here is the contact information for the office I was telling you about. Click on the link below to visit their website:\n\nWebsite: https://www.smilekeeperdental.com/";
+            const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnMessage() {
+            const text = "Here is the contact information for the office I was telling you about. Click on the link below to visit their website:\n\nWebsite: https://www.smilekeeperdental.com/";
+            const url = `sms:?&body=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
